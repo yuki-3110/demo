@@ -1,0 +1,117 @@
+' option + D でプレビュー
+' コマンドパレット　export Current File Diagrams
+' titleは宣言文に使われているので、クオーテーションでごまかし
+' アソシエーションの向き、左 -l-, 右 -r-, 上 -u-, 下 -d-
+
+@startuml yonde
+' hide the spot
+hide circle
+
+' avoid problems with angled crows feet
+skinparam linetype ortho
+
+entity "**users**" as users {
+  + id [PK]
+  --
+  name
+  email
+  encrypted_password
+  reset_password_token
+  reset_password_sent_at
+  remember_create_at
+  sign_in_count
+  current_sign_in_at
+  last_sign_in_at
+  current_sign_in_ip
+  last_sign_in_ip
+  admin
+  created_at
+  updated_at
+}
+
+entity "**teams**" as teams {
+  + id [PK]
+  --
+  name
+  created_at
+  updated_at
+}
+
+entity "**assigns**" as assigns {
+  + id [PK]
+  # user_id [FK]
+  # team_id [FK]
+  --
+  created_at
+}
+
+entity "**movings**" as movings {
+  + id [PK]
+  # team_id [FK]
+  --
+  moving_day
+  created_at
+  updated_at
+}
+
+entity "**questions**" as questions {
+  + id [PK]
+  --
+  title
+  created_at
+  updated_at
+}
+
+entity "**answers**" as answers {
+  + id [PK]
+  # moving_id [FK]
+  # question_id [FK]
+  --
+  question_answer
+  created_at
+  updated_at
+}
+
+entity "**tasks**" as tasks {
+  + id [PK]
+  --
+  title
+  deadline
+  question_number
+  created_at
+  updated_at
+}
+
+
+entity "**have_to_tasks**" as have_to_tasks {
+  + id [PK]
+  # moving_id [FK]
+  # tasks_id [FK]
+  --
+  status
+  created_at
+}
+
+
+
+entity "**memos**" as memos {
+  + id [PK]
+  # team_id [FK]
+  # tasks_id [FK]
+  --
+  content
+  created_at
+  updated_at
+}
+
+users ||--o{ assigns
+teams ||--o{ assigns
+teams ||--o{ movings
+teams ||--o{ memos
+movings ||--o{ answers
+questions ||--o{answers
+movings ||--o{ have_to_tasks 
+tasks ||--o{ have_to_tasks 
+tasks ||--o{ memos
+
+@enduml∂

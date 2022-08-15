@@ -1,0 +1,123 @@
+<p id="notice"><%#= notice %></p>
+
+<% if current_user.try(:admin?) %>
+  <h1>Tasks_admin</h1>
+<% else %>
+  <h1>Tasks</h1>
+<% end %>
+
+<!-- <table class="table-sortable table-striped mt-5"> -->
+<!-- <table class="table-sortable"> -->
+<br>
+
+
+<ul id="simpleList" class="list-group">
+
+<%# @blogs.each do |blog| %>
+  <% @blogs_hash.keys.each do |standard_deadline| %>
+    <% blogs = @blogs_hash[standard_deadline] %>
+
+    <%# @blogs.filter{|standard_deadline| standard_deadline == '1か月前まで'}.each do |blog| %>
+    <%# @blogs.map(&:standard_deadline: '1') %>
+    <%# @blogs.select {|blog|standard_deadline==1} %>
+      <%# case blog.standard_deadline %>
+      <%# when '1か月前まで' %>
+      <%# if blog.standard_deadline == '1か月前まで' %>
+    <%= standard_deadline %>
+    <tr class="ui-state-disabled"></tr>
+    
+    <% blogs.each do |blog| %>
+      <li class="list-group-item list-group-item-secondary mb-3">
+      <input class="form-check-input me-1" type="checkbox" value="" aria-label="..."  style="transform: scale(1.5)">
+      <%= blog.title %>
+      <%= blog.content %><br>
+      タスク完了予定日:<%= blog.deadline %><%= blog.deadline.strftime("(%A)") %><br>
+      今日:<%= @today %><%= @today.strftime("(%A)") %><br>
+      期日まで残り:<%= (blog.deadline -  @today).to_i %>日
+      <%#= blog.deadline_count(blog) %>
+
+        <div class="text-right">
+          <%= link_to blog, class: 'btn btn-primary btn-sm' do %>
+            <i class="fas fa-search"></i>
+          <% end %>
+
+          <%= link_to edit_blog_path(blog), class: 'btn btn-primary btn-sm' do %>
+            <i class="fa-solid fa-pen-to-square"></i>
+          <% end %>
+          <%#= link_to 'Destroy', blog, class: 'btn btn-primary btn-sm', method: :delete, data: { confirm: 'Are you sure?' } do %>
+          <%= link_to blog, class: 'btn btn-primary btn-sm', method: :delete, data: { confirm: 'Are you sure?' } do %>
+            <i class="fa-solid fa-trash-can"></i>
+          <% end %>
+        </div>
+      </li>
+    <% end %>
+
+    <%# blogs.each do |blog| %>
+      <!-- <隠しボーダー 並べ替えのため> -->
+      <li class=" seacret mb-1 border border-0"></li>
+      
+      
+      <%#= blog.deadline_count(blog) %>
+      
+    <%# end %>
+  <% end %>
+</ul>
+
+
+
+    
+
+    
+
+
+  
+
+
+
+    
+      <%# when 4 %>
+    
+        <!-- <tr class="item(data = { model_name: blog.class.name.underscore, update_url: blog_sort_path(blog) })"> -->
+        
+          
+          <!-- <script type="text/javascript">
+            $('."item(data = { model_name: blog.class.name.underscore, update_url: blog_sort_path(blog) })"').sortable({
+              axis: 'y',
+              items: '.item',
+
+              // Ajaxで並び順のデータをコントローラーに送信
+              update(e, ui) {
+                let item = ui.item;
+                let item_data = item.data();
+                let params = { _method: 'put' };
+                params[item_data.model_name] = { row_order_position: item.index() };
+                $.ajax({
+                  type: 'POST',
+                  url: item_data.update_url,
+                  dataType: 'json',
+                  data: params,
+                });
+              },
+
+              // ドラッグ幅をテーブルに合わせる
+              start(e, ui) {
+                let cells, tableWidth, widthForEachCell;
+                tableWidth = $(this).width();
+                cells = ui.item.children('td');
+                widthForEachCell = tableWidth / cells.length + 'px';
+                return cells.css('width', widthForEachCell);
+              },
+
+              // エフェクトを付与
+              stop(e, ui) {
+                return ui.item.children('td').effect('highlight');
+              },
+            });
+          });
+        </script> -->
+    
+
+
+<br>
+
+<%= link_to 'New Task', new_blog_path %>
