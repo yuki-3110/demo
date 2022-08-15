@@ -30,6 +30,7 @@
       <% blogs.each do |blog| %>
         <li class="list-group-item list-group-item-secondary mb-3">
         <!--<input class="form-check-input me-1" type="checkbox" value="" aria-label="..."  style="transform: scale(1.5)">-->
+        
         <%= check_box_tag '', '' , blog.done, {'data-id' => blog.id } %>
         <%= blog.title %>
         <%= blog.content %><br>
