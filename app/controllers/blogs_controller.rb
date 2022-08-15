@@ -6,6 +6,7 @@ class BlogsController < ApplicationController
   def index
     # @blogs = Blog.all
     @blogs = Blog.all.order(standard_deadline: "ASC").order(id: "ASC")
+    # @blogs = current_user.blogs.order(standard_deadline: "ASC").order(id: "ASC")
     @blogs_hash = @blogs.group_by {|blog| blog.standard_deadline}
     # @blogs = Blog.all.where(standard_deadline: '1')
     # @standard_deadline2_blogs = Blog.where(standard_deadline: '2')
@@ -76,11 +77,19 @@ class BlogsController < ApplicationController
   end
 
   # this action will be called via ajax
-  def sort
-    blog = Blog.find(params[:blog_id])
-    blog.update(blog_params)
-    render body: nil
+  # def sort
+  #   blog = Blog.find(params[:blog_id])
+  #   blog.update(blog_params)
+  #   render body: nil
+  #   # render nothing: true
+  # end
+
+  def toggle
     # render nothing: true
+    head :no_content
+    @blog = Blog.find(params[:id])
+    @blog.done = !@blog.done
+    @blog.save
   end
 
   private
@@ -92,6 +101,6 @@ class BlogsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def blog_params
       # params.require(:blog).permit(:title, :content, :row_order_position)
-      params.require(:blog).permit(:title, :content, :deadline, :standard_deadline)
+      params.require(:blog).permit(:title, :content, :deadline, :standard_deadline, :done)
     end
 end

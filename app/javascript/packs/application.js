@@ -63,6 +63,12 @@ document.addEventListener('turbolinks:load', () => {
   var sortable = Sortable.create(el);  
 })
 
+// $(function(){
+//   $("input[type=checkbox]").click(function(){
+//     $.post('/blogs/' + $(this).data('id') + '/toggle');
+//   });
+// });
+
 
 // document.addEventListener('turbolinks:load', () => {
 //   var el = document.getElementById('simpleList2');

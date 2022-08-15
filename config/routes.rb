@@ -22,9 +22,12 @@ Rails.application.routes.draw do
   resources :users, only: %i( show )
 
   resources :blogs do
+    # post '/blogs/:id/toggle' => 'blogs#toggle'
     resources :comments
-    put :sort
+    # put :sort
   end
+
+  post '/blogs/:id/toggle' => 'blogs#toggle'
 
 
 

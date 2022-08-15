@@ -1,43 +1,57 @@
 
 <p id="notice"><%#= notice %></p>
 
-<p>
-  <strong>standard_deadline :</strong>
-  <%#= @blog.standard_deadline  %>
-  <%= t("enums.@blog.standard_deadline.#{@blog.standard_deadline}") %>
-</p>
+<div class="container" >
 
-<p>
-  <strong>Title:</strong>
-  <%= @blog.title %>
-</p>
+  <div class="card card-body mt-5 ">
+    <p>
+      <strong>standard_deadline :</strong>
+      <%#= @blog.standard_deadline  %>
+      <%= t("enums.@blog.standard_deadline.#{@blog.standard_deadline}") %>
+    </p>
 
-<p>
-  <strong>Content:</strong>
-  <%= @blog.content %>
-</p>
+    <p>
+      <strong>Title:</strong>
+      <%= @blog.title %>
+    </p>
 
-<p>
-  <strong>deadline:</strong>
-  <%= @blog.deadline %>
-</p>
+    <p>
+      <strong>Content:</strong>
+      <%= @blog.content %>
+    </p>
+
+    <p>
+      <strong>deadline:</strong>
+      <%= @blog.deadline %>
+    </p>
+  </div>
+
+  <%#= link_to 'Edit', edit_blog_path(@blog) %> 
+  <%#= link_to 'Back', blogs_path %>
+
+  <div class="card card-body mt-5 ">
+  <!-- hr style="border-top: 5px solid #000;" -->
+    <p>保存したメモ</p>
+    <% unless @comment.id.present? %>
+      <p>現在保存されているメモはありません</p>
+    <% else %>
+      <td></td>
+    <% end %>
+    <!-- このcomments_areaというHTMLのidを取得して、そのdivの部分だけを更新する -->
+    <div id="comments_area">
+      <!-- 投稿されたコメント一覧をブログの詳細ページに表示するためのrender -->
+      <%= render partial: 'comments/index', locals: { comments: @comments, blog: @blog } %>
+    </div>
+    <br>
+    
+    <!--  <p>メモを書く</p> -->
+    <br>
+    <!-- コメント入力欄をブログの詳細ページに表示するためのrender -->
+    <%= render partial: 'comments/form', locals: { comment: @comment, blog: @blog } %>
+  </div>
 
 
+<%= link_to 'Edit', edit_blog_path(@blog) %> 
+<%= link_to 'Back', blogs_path %>
 
-
-<%#= link_to 'Edit', edit_blog_path(@blog) %> |
-<%#= link_to 'Back', blogs_path %>
-
-<hr style="border-top: 5px solid #000;">
-<br>
-<p>保存したメモ</p>
-
-<!-- このcomments_areaというHTMLのidを取得して、そのdivの部分だけを更新する -->
-<div id="comments_area">
-  <!-- 投稿されたコメント一覧をブログの詳細ページに表示するためのrender -->
-  <%= render partial: 'comments/index', locals: { comments: @comments, blog: @blog } %>
 </div>
-<br>
-<p>メモを書く</p>
-<!-- コメント入力欄をブログの詳細ページに表示するためのrender -->
-<%= render partial: 'comments/form', locals: { comment: @comment, blog: @blog } %>
