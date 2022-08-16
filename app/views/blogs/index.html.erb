@@ -11,21 +11,30 @@
   <!-- <table class="table-sortable"> -->
   <br>
 
+<!--
+  <li class=" fix border border-0">
+    <p>aaaa</p>
+  </li>-->
 
   <ul id="simpleList" class="list-group">
+
+    
 
   <%# @blogs.each do |blog| %>
     <% @blogs_hash.keys.each do |standard_deadline| %>
       <% blogs = @blogs_hash[standard_deadline] %>
 
+      
       <%# @blogs.filter{|standard_deadline| standard_deadline == '1か月前まで'}.each do |blog| %>
       <%# @blogs.map(&:standard_deadline: '1') %>
       <%# @blogs.select {|blog|standard_deadline==1} %>
         <%# case blog.standard_deadline %>
         <%# when '1か月前まで' %>
         <%# if blog.standard_deadline == '1か月前まで' %>
-      <%= standard_deadline %>
-      <tr class="ui-state-disabled"></tr>
+    
+      <li class=" seacret mb-4 border border-0">
+        <%= standard_deadline %>
+      </li>
       
       <% blogs.each do |blog| %>
         <li class="list-group-item list-group-item-secondary mb-3">
@@ -57,9 +66,6 @@
 
       <%# blogs.each do |blog| %>
         <!-- <隠しボーダー 並べ替えのため> -->
-        <li class=" seacret mb-1 border border-0"></li>
-        
-        
         <%#= blog.deadline_count(blog) %>
         
       <%# end %>
@@ -79,7 +85,6 @@
     })
   })
 </script>
-
 
 
 

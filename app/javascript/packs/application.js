@@ -60,8 +60,70 @@ import '@fortawesome/fontawesome-free/js/all';
 
 document.addEventListener('turbolinks:load', () => {
   var el = document.getElementById('simpleList');
-  var sortable = Sortable.create(el);  
+  var sortable = Sortable.create(el, {
+    group: "localStorage-example",
+    store: {
+		/**
+		 * Get the order of elements. Called once during initialization.
+		 * @param   {Sortable}  sortable
+		 * @returns {Array}
+		 */
+		get: function (sortable) {
+			var order = localStorage.getItem(sortable.options.group.name);
+			return order ? order.split('|') : [];
+		},
+
+		/**
+		 * Save the order of elements. Called onEnd (when the item is dropped).
+		 * @param {Sortable}  sortable
+		 */
+		set: function (sortable) {
+			var order = sortable.toArray();
+			localStorage.setItem(sortable.options.group.name, order.join('|'));
+		}
+	}
 })
+})
+
+
+// document.addEventListener('turbolinks:load', () => {
+//   var sortable = Sortable.create(el, {
+//     handle: '.handle',
+//     onSort: function(evt) {
+//       var items = el.querySelectorAll('li');
+//       for (var i = 0; i < items.length; i++) {
+//           items[i].querySelector('.no').value = i + 1;
+//       }
+//     }
+//   }
+// });
+
+
+
+
+
+
+
+{/* <script>
+jQuery( function() {
+    jQuery( '#simpleList' ) . sortable();
+    jQuery( '#simpleList' ) . disableSelection();
+    jQuery( '#simpleList' ) . sortable( {
+        update: function( event, ui ) {
+            var updateArray = jQuery( '#simpleList' ) . sortable( 'toArray' ) . join( ',' );
+            jQuery . cookie( 'simpleList', updateArray, { expires: 1 } );
+        }
+    } );
+    if( jQuery . cookie( 'simpleList' ) ){
+        var cookieValue = jQuery . cookie( 'simpleList' ) . split( ',' ) . reverse();
+        jQuery . each(
+            cookieValue,
+            function( index, value ){ jQuery( '#' + value ) . prependTo( '#simpleList' ); }
+        );
+    }
+} );
+</script> */}
+
 
 // $(function(){
 //   $("input[type=checkbox]").click(function(){

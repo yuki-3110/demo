@@ -2,6 +2,13 @@
   cursor: pointer;
   background-color: #eaf6fd;
 }
+/* 
+.fix {
+  list-style-type: none;
+  position: fixed;
+  color: white;
+} */
+
 
 .seacret {
   list-style-type: none;
